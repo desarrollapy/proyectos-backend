@@ -25,25 +25,19 @@ public class UsuariosRegistration {
     private Event<Usuario> memberEventSrc;
 
     public void register(Usuario usuario) throws Exception {
-        usuario.setPassword(toSHA(usuario.getPassword()));
-        log.info("Registrando USuario " + usuario.getNombre() + " " +usuario.getApellido());
         em.persist(usuario);
         memberEventSrc.fire(usuario);
     }
 
     public void delete(Long id) {
         Usuario usuario = em.find(Usuario.class, id);
-        log.info("Eliminando usuario: " + usuario.getApellido() + "," + usuario.getNombre());
+        
         em.remove(usuario);
     }
 
     public void update(Long id, Usuario usuario) {
         Usuario u = em.find(Usuario.class, id);
-        log.info("Actualizando usuario" + u.getNombre() + " " + u.getApellido());
-        u.setNombre(usuario.getNombre());
-        u.setApellido(usuario.getApellido());
-        u.setEmail(usuario.getEmail());
-        u.setRoles(usuario.getRoles());
+        
         em.merge(u);
         em.flush();
     }

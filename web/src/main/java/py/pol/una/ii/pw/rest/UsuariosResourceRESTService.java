@@ -79,7 +79,6 @@ public class UsuariosResourceRESTService {
     public Response createMember(Usuario usuario) {
         Response.ResponseBuilder builder = null;
         try {
-            System.out.println(usuario.getPassword());
             registration.register(usuario);
 
             // Create an "ok" response
